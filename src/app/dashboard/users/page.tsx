@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Box,
   Typography,
@@ -49,7 +48,7 @@ const stats = [
     value: 23,
     subtitle: 'Requieren aprobación',
     icon: <AccessTimeIcon />,
-    color: 'yellow', // custom color in-line
+    color: 'yellow', // custom color inline
   },
   {
     title: 'Inactivos',
@@ -97,21 +96,22 @@ export default function UserDashboard() {
   const colors = tokens(theme.palette.mode);
 
   return (
-    <Box p={{ xs: 2, md: 4 }}>
-      <Typography variant="h4" mb={3}>
-        Gestión de Usuarios
-      </Typography>
+    <Grid container spacing={4}>
+      {/* Título */}
+      <Grid size={{xs:12}}>
+        <Typography variant="h4">Gestión de Usuarios</Typography>
+      </Grid>
 
-      {/* === Cards === */}
-      <Grid container spacing={3} mb={4}>
+      {/* Cards */}
+      <Grid container size={{xs:10}} spacing={3}>
         {stats.map((stat, index) => {
           const cardColor =
             stat.color === 'yellow'
-              ? '#facc15' // Amarillo personalizado para pendientes
+              ? '#facc15'
               : colors[stat.color as keyof typeof colors][500];
 
           return (
-            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+            <Grid size={{xs:12, sm:6, md:3}}  key={index}>
               <Card
                 sx={{
                   backgroundColor: colors.primary[400],
@@ -152,93 +152,95 @@ export default function UserDashboard() {
         })}
       </Grid>
 
-      {/* === Tabla de Usuarios === */}
-      <TableContainer
-        component={Paper}
-        sx={{
-          backgroundColor: colors.primary[400],
-        }}
-      >
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ color: colors.grey[100] }}>Usuario</TableCell>
-              <TableCell sx={{ color: colors.grey[100] }}>Rol</TableCell>
-              <TableCell sx={{ color: colors.grey[100] }}>Estado</TableCell>
-              <TableCell sx={{ color: colors.grey[100] }}>Último acceso</TableCell>
-              <TableCell align="center" sx={{ color: colors.grey[100] }}>
-                Acciones
-              </TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {users.map((user, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <Box display="flex" alignItems="center">
-                    <Avatar
-                      sx={{
-                        bgcolor: colors.blueAccent[500],
-                        color: 'white',
-                        mr: 2,
-                      }}
-                    >
-                      {getInitials(user.name)}
-                    </Avatar>
-                    <Box>
-                      <Typography color={colors.grey[100]} fontWeight="bold">
-                        {user.name}
-                      </Typography>
-                      <Typography color={colors.grey[300]} variant="body2">
-                        {user.email}
-                      </Typography>
-                    </Box>
-                  </Box>
-                </TableCell>
-
-                <TableCell>
-                  <Chip
-                    label={user.role}
-                    sx={{
-                      bgcolor: colors[user.color as keyof typeof colors][600],
-                      color: colors.grey[100],
-                      fontWeight: 600,
-                    }}
-                  />
-                </TableCell>
-
-                <TableCell>
-                  <Chip
-                    label={user.status}
-                    sx={{
-                      bgcolor: colors.greenAccent[600],
-                      color: colors.grey[100],
-                      fontWeight: 600,
-                    }}
-                  />
-                </TableCell>
-
-                <TableCell>
-                  <Typography color={colors.grey[200]}>{user.lastAccess}</Typography>
-                </TableCell>
-
-                <TableCell align="center">
-                  <IconButton>
-                    <EditIcon sx={{ color: colors.grey[100] }} />
-                  </IconButton>
-                  <IconButton>
-                    <MoreVertIcon sx={{ color: colors.grey[100] }} />
-                  </IconButton>
+      {/* Tabla de usuarios */}
+      <Grid size={{xs:12}}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            backgroundColor: colors.primary[400],
+          }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ color: colors.grey[100] }}>Usuario</TableCell>
+                <TableCell sx={{ color: colors.grey[100] }}>Rol</TableCell>
+                <TableCell sx={{ color: colors.grey[100] }}>Estado</TableCell>
+                <TableCell sx={{ color: colors.grey[100] }}>Último acceso</TableCell>
+                <TableCell align="center" sx={{ color: colors.grey[100] }}>
+                  Acciones
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
 
-      {/* === Botón "Nuevo Usuario" === */}
-      <Box display="flex" justifyContent="flex-end" mt={3}>
+            <TableBody>
+              {users.map((user, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Box display="flex" alignItems="center">
+                      <Avatar
+                        sx={{
+                          bgcolor: colors.blueAccent[500],
+                          color: 'white',
+                          mr: 2,
+                        }}
+                      >
+                        {getInitials(user.name)}
+                      </Avatar>
+                      <Box>
+                        <Typography color={colors.grey[100]} fontWeight="bold">
+                          {user.name}
+                        </Typography>
+                        <Typography color={colors.grey[300]} variant="body2">
+                          {user.email}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </TableCell>
+
+                  <TableCell>
+                    <Chip
+                      label={user.role}
+                      sx={{
+                        bgcolor: colors[user.color as keyof typeof colors][600],
+                        color: colors.grey[100],
+                        fontWeight: 600,
+                      }}
+                    />
+                  </TableCell>
+
+                  <TableCell>
+                    <Chip
+                      label={user.status}
+                      sx={{
+                        bgcolor: colors.greenAccent[600],
+                        color: colors.grey[100],
+                        fontWeight: 600,
+                      }}
+                    />
+                  </TableCell>
+
+                  <TableCell>
+                    <Typography color={colors.grey[200]}>{user.lastAccess}</Typography>
+                  </TableCell>
+
+                  <TableCell align="center">
+                    <IconButton>
+                      <EditIcon sx={{ color: colors.grey[100] }} />
+                    </IconButton>
+                    <IconButton>
+                      <MoreVertIcon sx={{ color: colors.grey[100] }} />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
+
+      {/* Botón Nuevo Usuario */}
+      <Grid size={{xs:12}} display="flex" justifyContent="flex-end">
         <Button
           variant="contained"
           sx={{
@@ -251,7 +253,7 @@ export default function UserDashboard() {
         >
           + Nuevo Usuario
         </Button>
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }

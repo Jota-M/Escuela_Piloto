@@ -2,10 +2,9 @@
 import { useState } from 'react';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import { Box, IconButton, Typography, useTheme, Divider } from '@mui/material';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { tokens } from '../dashboard/theme';
-import { useAuthGuard } from '../hooks/useAuthGuard';
 
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
@@ -14,11 +13,8 @@ import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
-import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 
 interface ItemProps {
   title: string;
@@ -31,69 +27,66 @@ interface ItemProps {
 const Item = ({ title, to, icon, selected, setSelected }: ItemProps) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const router = useRouter();
+
+  const handleClick = () => {
+    setSelected(title);
+    router.push(to);
+  };
 
   return (
     <MenuItem
       active={selected === title}
-      style={{ color: colors.grey[100] }}
-      onClick={() => setSelected(title)}
+      style={{ color: colors.grey[100], cursor: 'pointer' }}
+      onClick={handleClick}
       icon={icon}
     >
-      <Link href={to} className="w-full">
-        <Typography fontSize="0.95rem" fontWeight={500}>
-          {title}
-        </Typography>
-      </Link>
+      <Typography fontSize="0.95rem" fontWeight={500}>
+        {title}
+      </Typography>
     </MenuItem>
   );
 };
+
+// Aquí el array de secciones igual
 
 const sections = [
   {
     label: 'Administración',
     items: [
-      { title: 'Dashboard', to: '/dashboard', icon: <HomeOutlinedIcon />, roles: ['admin', 'user'] },
-      { title: 'Users', to: '/dashboard/users', icon: <PeopleOutlinedIcon />, roles: ['admin'] },
-      { title: 'Docentes', to: '/dashboard/docentes', icon: <ReceiptOutlinedIcon />, roles: ['admin'] },
-      { title: 'Estudiantes', to: '/dashboard/estudiantes', icon: <PersonOutlinedIcon />, roles: ['admin', 'user'] },
+      { title: 'Dashboard', to: '/dashboard', icon: <HomeOutlinedIcon /> },
+      { title: 'Users', to: '/dashboard/users', icon: <PeopleOutlinedIcon /> },
+      { title: 'Docentes', to: '/dashboard/docentes', icon: <ReceiptOutlinedIcon /> },
+      { title: 'Estudiantes', to: '/dashboard/estudiantes', icon: <PersonOutlinedIcon /> },
     ],
   },
   {
     label: 'Académica',
     items: [
-      { title: 'Asignaciones', to: '/dashboard/asignaciones', icon: <ContactsOutlinedIcon />, roles: ['admin', 'user'] },
-      { title: 'Materias', to: '/dashboard/materias', icon: <HelpOutlineOutlinedIcon />, roles: ['admin', 'user'] },
-      { title: 'Horarios y Paralelos', to: '/calendar', icon: <CalendarTodayOutlinedIcon />, roles: ['admin', 'user'] },
-      
-    ],
-  },
-  {
-    label: 'Configuracion',
-    items: [
-      { title: 'Configuración', to: '/pie', icon: <PieChartOutlineOutlinedIcon />, roles: ['admin'] },
-      { title: 'Reportes', to: '/line', icon: <TimelineOutlinedIcon />, roles: ['admin'] },
+      { title: 'Asignaciones', to: '/dashboard/asignaciones', icon: <ContactsOutlinedIcon /> },
+      { title: 'Materias', to: '/dashboard/horario', icon: <HelpOutlineOutlinedIcon /> },
+      { title: 'Horarios y Paralelos', to: '/dashboard/materias', icon: <CalendarTodayOutlinedIcon /> },
     ],
   },
   {
     label: 'Padre de Familia/Tutor',
     items: [
-      { title: 'Panel Principal', to: '/dashboard/Padre/principal', icon: <HomeOutlinedIcon />, roles: ['admin', 'user'] },
-      { title: 'Calificaciones', to: '/dashboard/Padre/calificaciones', icon: <PeopleOutlinedIcon />, roles: ['admin'] },
-      { title: 'Asistencia', to: '/dashboard/Padre/asistencia', icon: <ReceiptOutlinedIcon />, roles: ['admin'] },
-      { title: 'Horario', to: '/dashboard/Padre/horario', icon: <PersonOutlinedIcon />, roles: ['admin', 'user'] },
-      { title: 'Alertas', to: '/dashboard/Padre/alertas', icon: <TimelineOutlinedIcon />, roles: ['admin', 'user'] },
+      { title: 'Panel Principal', to: '/dashboard/Padre/principal', icon: <HomeOutlinedIcon /> },
+      { title: 'Calificaciones', to: '/dashboard/Padre/calificaciones', icon: <PeopleOutlinedIcon /> },
+      { title: 'Asistencia', to: '/dashboard/Padre/asistencia', icon: <ReceiptOutlinedIcon /> },
+      { title: 'Horario', to: '/dashboard/Padre/horario', icon: <PersonOutlinedIcon /> },
+      { title: 'Alertas', to: '/dashboard/Padre/alertas', icon: <TimelineOutlinedIcon /> },
     ],
   },
   {
     label: 'Profesor',
     items: [
-      { title: 'Home  ', to: '/dashboard/profesor/home', icon: <HomeOutlinedIcon />, roles: ['admin', 'user'] },
-      { title: 'Notas y Calificaciones', to: '/dashboard/profesor/notas', icon: <PeopleOutlinedIcon />, roles: ['admin'] },
-      { title: 'Asistencia', to: '/dashboard/profesor/asistencia', icon: <ReceiptOutlinedIcon />, roles: ['admin'] },
-      { title: 'Clases', to: '/dashboard/profesor/clases', icon: <PersonOutlinedIcon />, roles: ['admin', 'user'] },
+      { title: 'Home', to: '/dashboard/profesor/home', icon: <HomeOutlinedIcon /> },
+      { title: 'Notas y Calificaciones', to: '/dashboard/profesor/notas', icon: <PeopleOutlinedIcon /> },
+      { title: 'Asistencia', to: '/dashboard/profesor/asistencia', icon: <ReceiptOutlinedIcon /> },
+      { title: 'Clases', to: '/dashboard/profesor/clases', icon: <PersonOutlinedIcon /> },
     ],
   },
-  
 ];
 
 const Sidebar = () => {
@@ -101,16 +94,10 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState('Dashboard');
-  const { loading, role } = useAuthGuard();
-
-  if (loading) {
-    return <p className="text-white p-8">Cargando menú...</p>;
-  }
 
   return (
     <Box
       sx={{
-        height: '100vh',
         overflow: 'hidden',
         '& .pro-sidebar-inner': {
           background: `${colors.primary[400]} !important`,
@@ -144,14 +131,14 @@ const Sidebar = () => {
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{ margin: '10px 0 20px 0', color: colors.grey[100] }}
+            style={{ margin: '10px 0 20px 0', color: colors.grey[100], minWidth: 80 }}
           >
             {!isCollapsed && (
-              <Box display="flex" justifyContent="space-between" alignItems="center" ml="15px">
+              <Box display="flex" justifyContent="space-between" alignItems="center" ml="15px" mr="10px">
                 <Typography variant="h3" color={colors.grey[100]}>
                   U.E. LVC
                 </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                <IconButton onClick={() => setIsCollapsed(!isCollapsed)} sx={{ p: 1, minWidth: 40 }}>
                   <MenuOutlinedIcon />
                 </IconButton>
               </Box>
@@ -164,8 +151,8 @@ const Sidebar = () => {
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
-                  width="100px"
-                  height="100px"
+                  width="100"
+                  height="100"
                   src={`/perfil.jpg`}
                   style={{ cursor: 'pointer', borderRadius: '50%' }}
                 />
@@ -199,19 +186,19 @@ const Sidebar = () => {
                     {section.label}
                   </Typography>
                 )}
-                {section.items
-                  .filter((item) => role && item.roles.includes(role))
-                  .map((item) => (
-                    <Item
-                      key={item.title}
-                      title={item.title}
-                      to={item.to}
-                      icon={item.icon}
-                      selected={selected}
-                      setSelected={setSelected}
-                    />
-                  ))}
-                {i !== sections.length - 1 && <Divider sx={{ my: 1, bgcolor: colors.grey[700] }} />}
+                {section.items.map((item) => (
+                  <Item
+                    key={item.title}
+                    title={item.title}
+                    to={item.to}
+                    icon={item.icon}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                ))}
+                {i !== sections.length - 1 && (
+                  <Divider sx={{ my: 1, bgcolor: colors.grey[700] }} />
+                )}
               </Box>
             ))}
           </Box>

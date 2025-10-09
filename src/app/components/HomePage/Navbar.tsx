@@ -86,13 +86,6 @@ function Navbar() {
 
           {/* Botón Admisiones */}
           {/* Botón Login */}
-          
-          <a
-            href="/PreInscripcion"
-            className="bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow-md hover:bg-green-600 transition-transform hover:scale-105"
-          >
-            Admisiones 2025
-          </a>
           <a
             href="/login"
             className="px-6 py-2 rounded-lg font-semibold border-2 border-yellow-400 text-yellow-400 bg-transparent hover:bg-yellow-400 hover:text-black transition-all duration-300 hover:scale-110 shadow-sm hover:shadow-md"

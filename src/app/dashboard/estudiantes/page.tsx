@@ -1,5 +1,5 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { tokens } from "@/app/dashboard/theme";
 
@@ -15,44 +15,45 @@ import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import SchoolIcon from "@mui/icons-material/School";
 import Card from "@/app/components/DashAdmin/Card";
-// import EstudianteTable from "@/app/components/DashAdmin/EstudianteTable"; 
-// Update the import path below if the file exists elsewhere:
 import EstudianteTable from "../../components/DashAdmin/EstudianteTable";
 
 export default function Page() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [students, setStudents] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    // Simulando fetch de estudiantes (puedes adaptar luego con tu API real)
-    const fetchStudents = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/api/students");
-        const data = await res.json();
-        const studentsArray = Array.isArray(data) ? data : data.students;
+  // 👨‍🎓 Datos simulados de estudiantes
+  const [students] = useState([
+  {
+    name: "Ana Pérez",
+    email: "ana.perez@uevp.edu.bo",
+    status: "Activo",
+    lastAccess: "Hace 3 horas",
+    color: "blueAccent",
+    career: "Informática",
+    average: 89.5,
+  },
+  {
+    name: "Juan Quispe",
+    email: "juan.quispe@uevp.edu.bo",
+    status: "Activo",
+    lastAccess: "Ayer",
+    color: "blueAccent",
+    career: "Electromecánica",
+    average: 78.2,
+  },
+  {
+    name: "Lucía Mamani",
+    email: "lucia.mamani@uevp.edu.bo",
+    status: "Inactivo",
+    lastAccess: "Hace 5 días",
+    color: "blueAccent",
+    career: "Contabilidad",
+    average: 65.9,
+  },
+]);
 
-        setStudents(
-          studentsArray.map((s: any) => ({
-            name: `${s.first_name} ${s.last_name} ${s.mother_last_name || ""}`,
-            email: s.email,
-            status: s.status || "Activo",
-            lastAccess: "Hace 2 horas",
-            color: "blueAccent",
-          }))
-        );
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStudents();
-  }, []);
 
   const filteredStudents = students.filter((s) =>
     s.name.toLowerCase().includes(search.toLowerCase())
@@ -109,7 +110,7 @@ export default function Page() {
         </Box>
       </Grid>
 
-      {/* Cards */}
+      {/* Tarjetas resumen */}
       <Grid
         size={{ lg: 12 }}
         sx={{
@@ -165,11 +166,7 @@ export default function Page() {
           p: 2,
         }}
       >
-        {loading ? (
-          <Typography>Cargando...</Typography>
-        ) : (
-          <EstudianteTable users={filteredStudents} />
-        )}
+        <EstudianteTable users={filteredStudents} />
       </Grid>
     </Grid>
   );

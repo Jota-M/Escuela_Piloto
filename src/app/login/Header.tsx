@@ -8,7 +8,7 @@ function Header() {
     <div className="fixed top-0 left-0 w-full z-20 shadow">
       <div className="max-w-screen-xl mx-auto flex justify-between py-4 px-6 md:px-20 lg:px-32 text-white">
         <div className="flex items-center gap-4">
-          <img src="./logo.png" alt="Logo" className="w-12" />
+          <img src="/logo.png" alt="Logo" className="w-15" />
           <div>
             <h1 className="text-sm md:text-base lg:text-base font-bold leading-tight">
               Unidad Educativa la Particular La Voz de Cristo

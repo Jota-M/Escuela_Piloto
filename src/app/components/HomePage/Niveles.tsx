@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Grid from "@mui/material/Grid";
-import { Typography, Button, useTheme,Box } from "@mui/material";
+import { Typography, Button, useTheme, Box } from "@mui/material";
 import Card from "./Card";
 
 function Nivels() {
@@ -10,13 +10,12 @@ function Nivels() {
 
   return (
     <>
-    <Box sx={{ my: 6, borderTop: '1px solid', borderColor: isDark ? '#333' : '#ccc' }} />
+      <Box sx={{ my: 6, borderTop: '1px solid', borderColor: isDark ? '#333' : '#ccc' }} />
       <Grid
         id="Niveles"
         container
         spacing={2}
         sx={{
-          height: { lg: "100vh" },
           padding: { xs: 2, sm: 2, md: 2, lg: 4 },
         }}
       >
@@ -37,7 +36,7 @@ function Nivels() {
               animation: "fadeSlideIn 0.8s forwards",
             }}
           >
-            Explora Nuestros programas
+            Conoce nuestra propuesta educativa integral
           </Typography>
           <Typography
             variant="h5"
@@ -51,7 +50,7 @@ function Nivels() {
               animationDelay: "0.2s",
             }}
           >
-            Niveles Educativos
+            Desde primaria hasta formación superior técnica
           </Typography>
           <Typography
             variant="body2"
@@ -63,52 +62,53 @@ function Nivels() {
               animationDelay: "0.4s",
             }}
           >
-            Acompañamos el crecimiento de nuestros estudiantes en cada etapa de su formación
+            Nuestra unidad educativa acompaña el crecimiento académico de cada estudiante desde sus primeras etapas hasta su proyección profesional universitaria.
           </Typography>
         </Grid>
 
-        <Grid size={{ xs: 10, sm: 5, md: 3.3, lg: 3 }} offset={{ xs: 1.5, sm: 1, md: 1, lg:1.5 }}>
-        <Card
-          init="Initial"
-          imageurl="/Nivels/Initial.jpg"
-          title="Educacion Inicial"
-          paragraph="Primeros pasos en el aprendizaje con metodología lúdica, desarrollo psicomotor y formación en valores cristianos fundamentales."
-          paragraph1="3 a 5 años"
-          paragraph2="Desarrollo Integral"
-          paragraph3="Valores Cristianos"
-        />
-      </Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} offset={{ xs: 0, sm: 0, md: 0, lg: 1 }}>
+          <Card
+            init="Primary"
+            imageurl="/Nivels/Initial.png"
+            title="Educación Primaria"
+            paragraph="Desarrollo integral de habilidades básicas: lectura, escritura, matemáticas y expresión. Formación con enfoque en pensamiento lógico y valores."
+            paragraph1="6 a 11 años"
+            paragraph2="Fundamentos académicos"
+            paragraph3="Formación integral"
+          />
+        </Grid>
 
-      <Grid size={{ xs: 10, sm: 5, md: 3.3, lg: 3 }} offset={{ xs: 1.5, sm: 0, md: 0, lg:0 }}>
-        <Card
-          init="Primary"
-          imageurl="/Nivels/Primary-3.jpg"
-          title="Educacion Primaria"
-          paragraph="Formación académica sólida con énfasis en lectoescritura, matemáticas, ciencias y desarrollo del pensamiento crítico con base bíblica"
-          paragraph1="6 a 12 años"
-          paragraph2="Bases académicas sólidas"
-          paragraph3="Pensamiento crítico"
-        />
-      </Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+          <Card
+            init="Secondary"
+            imageurl="/Nivels/Secondary.png"
+            title="Educación Secundaria"
+            paragraph="Preparación académica intermedia con enfoque en razonamiento crítico, habilidades científicas, y orientación vocacional progresiva."
+            paragraph1="12 a 17 años"
+            paragraph2="Orientación vocacional"
+            paragraph3="Pensamiento crítico"
+          />
+        </Grid>
 
-      <Grid size={{ xs: 10, sm: 6, md: 3.3, lg: 3  }} offset={{ xs: 1.5, sm: 3, md: 0, lg:0 }}>
-        <Card
-          init="Secondary"
-          imageurl="/Nivels/Secondary-1.jpg"
-          title="Educacion Secundaria"
-          paragraph="Preparación integral para la educación superior con bachillerato en ciencias, desarrollo del liderazgo y servicio comunitario."
-          paragraph1="12 a 18 años"
-          paragraph2="Bachillerato en ciencias"
-          paragraph3="Liderazgo cristiano"
-        />
-      </Grid>
-      <Grid size={{ xs: 10, sm: 4, md: 4, lg: 4 }} offset={{ xs: 1.5, sm: 4, md: 4, lg:5 }}>
-        <Button variant="outlined">Explora nuestra malla curricular</Button>
-      </Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+          <Card
+            init="Superior"
+            imageurl="/Nivels/Uni.png"
+            title="Educación Técnica Superior"
+            paragraph="Programas profesionales especializados con acompañamiento docente, prácticas reales y conexión directa con la universidad."
+            paragraph1="A partir de 18 años"
+            paragraph2="Especialización profesional"
+            paragraph3="Proyección universitaria"
+          />
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 4, md: 4, lg: 4 }} offset={{ xs: 0, sm: 4, md: 4, lg: 5 }}>
+          <Button variant="outlined">Ver malla curricular</Button>
+        </Grid>
       </Grid>
       <hr />
 
-      {/** Animaciones CSS */}
+      {/* Animaciones CSS */}
       <style>{`
         @keyframes fadeSlideIn {
           0% { opacity: 0; transform: translateY(30px); }

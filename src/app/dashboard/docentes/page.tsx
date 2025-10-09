@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { tokens } from "@/app/dashboard/theme";
@@ -21,36 +21,35 @@ export default function Page() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [teachers, setTeachers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    const fetchTeachers = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/api/teachers");
-        const data = await res.json();
-        const teachersArray = Array.isArray(data) ? data : data.teachers;
-
-        setTeachers(
-          teachersArray.map((t: any) => ({
-            name: `${t.first_name} ${t.last_name} ${t.mother_last_name || ""}`,
-            email: t.email,
-            role: "Docente",
-            status: t.status || "Activo",
-            lastAccess: "Hace 1 hora",
-            color: "greenAccent",
-          }))
-        );
-      } catch (error) {
-        console.error("Error fetching teachers:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTeachers();
-  }, []);
+  // 👨‍🏫 Docentes simulados
+  const [teachers] = useState([
+    {
+      name: "Luis Mamani Quispe",
+      email: "luis.mamani@uevp.edu.bo",
+      role: "Docente",
+      status: "Activo",
+      lastAccess: "Hace 1 hora",
+      color: "greenAccent",
+    },
+    {
+      name: "María López",
+      email: "maria.lopez@uevp.edu.bo",
+      role: "Docente",
+      status: "Inactivo",
+      lastAccess: "Hace 3 días",
+      color: "redAccent",
+    },
+    {
+      name: "Carlos Ticona",
+      email: "carlos.ticona@uevp.edu.bo",
+      role: "Docente",
+      status: "Activo",
+      lastAccess: "Hace 2 horas",
+      color: "greenAccent",
+    },
+  ]);
 
   const filteredTeachers = teachers.filter((t) =>
     t.name.toLowerCase().includes(search.toLowerCase())
@@ -59,11 +58,8 @@ export default function Page() {
   return (
     <Grid container spacing={3}>
       {/* Encabezado y búsqueda */}
-      <Grid size={{
-        xs:12,
-        md:6,
-        lg:12
-      }}
+      <Grid
+        size={{ xs: 12, md: 6, lg: 12 }}
         display="flex"
         justifyContent="space-between"
         alignItems="center"
@@ -106,6 +102,7 @@ export default function Page() {
         </Box>
       </Grid>
 
+      {/* Tarjetas de resumen */}
       <Grid
         size={{ lg: 12 }}
         spacing={3}
@@ -162,11 +159,7 @@ export default function Page() {
           p: 2,
         }}
       >
-        {loading ? (
-          <Typography>Cargando...</Typography>
-        ) : (
-          <DocenteTable users={filteredTeachers} />
-        )}
+        <DocenteTable users={filteredTeachers} />
       </Grid>
     </Grid>
   );

@@ -40,24 +40,24 @@ function About() {
               mb: 2,
             }}
           >
-            Una educación con{' '}
-            <Box component="span" sx={{ color: '#facc15' }}>
-              propósito eterno
+            Formación Vocacional con{' '}
+            <Box component="span" sx={{ color: 'red' }}>
+              Visión de Futuro
             </Box>
           </Typography>
           <Paragrafth
-            text="En el corazón de nuestra institución late un compromiso inquebrantable con la excelencia educativa y la formación integral de nuestros estudiantes. Nos dedicamos a cultivar no solo mentes brillantes, sino también corazones compasivos y espíritus resilientes."
+            text="Somos una unidad educativa vocacional piloto ubicada en Llallagua, dependiente de la Universidad, que ha sido creada con una visión transformadora: ofrecer a nuestros estudiantes una educación alineada con los modelos más avanzados del mundo, como el utilizado en países como China. Desde temprana edad, nuestros alumnos son guiados en un proceso formativo que les permite descubrir sus habilidades, desarrollar competencias específicas y proyectarse profesionalmente en áreas definidas. Esto les permite avanzar con claridad hacia estudios universitarios, con una base sólida y una vocación bien establecida."
           />
         </Grid>
 
         <Grid size={{ xs: 12, md: 6, lg: 5 }} sx={{ textAlign: 'center' }}>
           <Box
             component="img"
-            src="https://scontent.flpb2-2.fna.fbcdn.net/v/t39.30808-6/533706081_122156281088591421_6566465671246212824_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=833d8c&_nc_ohc=okgSYtDzTtMQ7kNvwElOVsl&_nc_oc=AdlVbDKBicy6xkX3ksXL5p7jWPVMC66cEtuPPuExMPYwzxFEtg8zOAQaaSF0fU_VgY8QUJitJk3y8F1VRB7QGO15&_nc_zt=23&_nc_ht=scontent.flpb2-2.fna&_nc_gid=xQhXkHEaSXNuqNBKomaHCQ&oh=00_AfbBLIppCVR-B1CJSYVGuzsmqxHwdtL8oe-dPWDUtOF3_w&oe=68E1ADE9"
+            src="fondo.jpg"
             alt="Estudiantes"
             sx={{
               width: '100%',
-              maxWidth: 480,
+              maxWidth: 580,
               borderRadius: 4,
               boxShadow: isDark
                 ? '0px 10px 20px rgba(0, 0, 0, 0.7)'
@@ -77,31 +77,47 @@ function About() {
             fontSize: { xs: '1.8rem', sm: '2rem', md: '2.6rem' },
             mb: 2,
             transition: 'color 0.4s ease',
-            color: '#FFE05C' 
+            color: 'red' 
           }}
         >
           Nuestros Pilares
         </Typography>
-        <Paragrafth
-          text="Los valores que fundamentan nuestra propuesta educativa y forman el carácter de nuestros estudiantes."
-          
-        />
+        <Typography variant='subtitle1'>
+          Los principios que guían nuestra propuesta vocacional, enfocada en el desarrollo integral y la proyección universitaria de nuestros estudiantes."
+        </Typography>
+        
       </Box>
 
       <Grid container spacing={1} justifyContent="center">
-        <Grid size={{ xs: 12, sm: 12, md: 12, lg: 2.5 }} offset={{ xs: 2, sm: 0, md: 0, lg: 1 }}>
-        <Pils image='/Pils-1.jpg' title='Fe' description='La fe es un pilar fundamental en nuestra institución, fomentando la espiritualidad y el respeto por las creencias de cada individuo.'/>
-      </Grid>
-      <Grid size={{ xs: 12, sm: 12, md: 12, lg: 2.5 }} offset={{ xs: 2, sm: 0, md: 0 }}>
-        <Pils image='/Pils-2.jpg' title='Respeto' description='El respeto es un pilar fundamental en nuestra institución, fomentando la convivencia y el entendimiento entre todos.'/>
-      </Grid>
-      <Grid size={{ xs: 12, sm: 12, md: 12, lg: 2.5 }} offset={{ xs: 2, sm: 0, md: 0 }}>
-        <Pils image='/Pils-3.jpg' title='Responsabilidad' description='La responsabilidad es un pilar fundamental en nuestra institución, fomentando la autonomía y el compromiso con el aprendizaje.'/>
-      </Grid>
-      <Grid size={{ xs: 12, sm: 12, md: 12, lg: 2.5 }} offset={{ xs: 2, sm: 0, md: 0 }}>
-        <Pils image='/Pils-4.jpg' title='Disciplina' description='La disciplina es un pilar fundamental en nuestra institución, fomentando la responsabilidad y el respeto por las normas.'/>
-      </Grid>
-      </Grid>
+  <Grid size={{ xs: 12, sm: 12, md: 12, lg: 2.5 }} offset={{ xs: 2, sm: 0, md: 0, lg: 1 }}>
+    <Pils
+      image='/Pils-1.jpg'
+      title='Orientación Vocacional'
+      description='Guiamos a nuestros estudiantes desde edades tempranas hacia el descubrimiento de su vocación y talentos personales.'
+    />
+  </Grid>
+  <Grid size={{ xs: 12, sm: 12, md: 12, lg: 2.5 }}>
+    <Pils
+      image='/Pils-2.jpg'
+      title='Innovación Educativa'
+      description='Incorporamos metodologías internacionales, como el modelo educativo chino, para una formación progresiva y especializada.'
+    />
+  </Grid>
+  <Grid size={{ xs: 12, sm: 12, md: 12, lg: 2.5 }}>
+    <Pils
+      image='/Pils-3.jpg'
+      title='Excelencia Académica'
+      description='Promovemos un aprendizaje de alto nivel que fortalece las bases académicas para el ingreso universitario.'
+    />
+  </Grid>
+  <Grid size={{ xs: 12, sm: 12, md: 12, lg: 2.5 }}>
+    <Pils
+      image='/Pils-4.jpg'
+      title='Proyección Profesional'
+      description='Preparamos a nuestros estudiantes para integrarse de forma directa a la universidad con una orientación definida.'
+    />
+  </Grid>
+</Grid>
     <VerseSection/>  
     </Box>
     

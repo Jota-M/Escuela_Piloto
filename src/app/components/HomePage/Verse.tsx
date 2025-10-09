@@ -6,12 +6,12 @@ const VerseSection = () => {
 
   const backgroundColor = isDark ? '#181B33' : '#EEEFF7';
   const textColor = isDark ? '#f5f5f5' : '#212121';
-  const accentColor = isDark ? '#d4af37' : '#8e793e'; 
+  const accentColor = isDark ? '#facc15' : '#b8860b'; // dorado más cálido
 
   return (
     <Box
       sx={{
-        mt:{xs:3, md:6},
+        mt: { xs: 3, md: 6 },
         py: { xs: 10, md: 14 },
         backgroundColor,
         textAlign: 'center',
@@ -24,7 +24,7 @@ const VerseSection = () => {
           fontFamily: `'Playfair Display', serif`,
           fontStyle: 'italic',
           fontWeight: 600,
-          fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
+          fontSize: { xs: '2rem', sm: '2.8rem', md: '3.2rem' },
           color: textColor,
           maxWidth: '1000px',
           mx: 'auto',
@@ -32,7 +32,7 @@ const VerseSection = () => {
           transition: 'color 0.4s ease',
         }}
       >
-        “Instruye al niño en su camino, y aun cuando fuere viejo no se apartará de él.”
+        “Educar no es llenar una vasija, sino encender un fuego que guíe toda una vida.”
       </Typography>
 
       <Typography
@@ -47,7 +47,7 @@ const VerseSection = () => {
           transition: 'color 0.4s ease',
         }}
       >
-        — Proverbios 22:6 —
+        — Inspirado en Plutarco —
       </Typography>
     </Box>
   );

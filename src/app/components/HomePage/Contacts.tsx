@@ -151,21 +151,21 @@ function Contact() {
               Nuestra información
             </Typography>
             <Typography variant="body2" gutterBottom>
-              <strong>LCV High School</strong>
+              <strong>Escuela Vocacional Piloto</strong>
               <br />
-              B 37/3 Ground Floor Double Story Ramesh Nagar,
+              Calle Sucre Nº 123
               <br />
-              Near Raja Garden Chowk. Delhi: 110015
+              Llallagua, Potosí - Bolivia
             </Typography>
             <Typography
               variant="body2"
               gutterBottom
               sx={{ color: 'green', fontWeight: 'bold' }}
             >
-              +91 9599272754
+              +591 4 532 9876
             </Typography>
             <Typography variant="body2" gutterBottom>
-              hello@info.com.ng
+              contacto@sanjuanbosco.edu.bo
             </Typography>
 
             {/* Redes sociales */}
@@ -196,12 +196,13 @@ function Contact() {
 
             {/* Mapa */}
             <Box sx={{ mt: 4 }}>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3759.404608825977!2d-65.76591543765535!3d-19.567159055251953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sbo!4v1759840783728!5m2!1ses!2sbo"
+               <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.4775746737093!2d-66.68835198470392!3d-17.02665377715752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93f7953eb4c1efbf%3A0x8a98e86f8a1bc6eb!2sLlallagua%2C%20Potos%C3%AD%2C%20Bolivia!5e0!3m2!1ses!2sbo!4v1707487298385!5m2!1ses!2sbo"
                 width="100%"
                 height="200"
                 loading="lazy"
                 style={{ border: 0, borderRadius: '8px' }}
+                title="Ubicación Llallagua"
               ></iframe>
             </Box>
           </Paper>
