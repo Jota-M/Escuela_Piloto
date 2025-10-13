@@ -19,36 +19,32 @@ const VerseSection = () => {
       }}
     >
       <Typography
-        variant="h2"
-        sx={{
-          fontFamily: `'Playfair Display', serif`,
-          fontStyle: 'italic',
-          fontWeight: 600,
-          fontSize: { xs: '2rem', sm: '2.8rem', md: '3.2rem' },
-          color: textColor,
-          maxWidth: '1000px',
-          mx: 'auto',
-          lineHeight: 1.4,
-          transition: 'color 0.4s ease',
-        }}
-      >
-        “Educar no es llenar una vasija, sino encender un fuego que guíe toda una vida.”
-      </Typography>
+  variant="h2"
+  sx={{
+    fontFamily: `'Playfair Display', serif`,
+    fontStyle: 'italic',
+    fontWeight: 600,
+    fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.2rem' },
+    color: textColor,
+    maxWidth: '1000px',
+    mx: 'auto',
+    lineHeight: 1.4,
+    whiteSpace: 'pre-line', 
+    transition: 'color 0.4s ease',
+  }}
+>
+  {`¨Una mirada del presente y futuro…¨
+Por una educación liberadora con calidad y por un País con Desarrollo
+“Una educación de calidad y excelencia un país con desarrollo”
+El propósito si:
+No hay una buena educación
+No hay desarrollo en un país
+No hay posibilidad de salir del
+Atraso y pobreza`}
+</Typography>
 
-      <Typography
-        variant="subtitle1"
-        sx={{
-          mt: 4,
-          fontWeight: 500,
-          color: accentColor,
-          textTransform: 'uppercase',
-          letterSpacing: 1,
-          fontSize: '1rem',
-          transition: 'color 0.4s ease',
-        }}
-      >
-        — Inspirado en Plutarco —
-      </Typography>
+
+      
     </Box>
   );
 };

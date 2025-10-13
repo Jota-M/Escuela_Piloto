@@ -11,18 +11,18 @@ function Nivels() {
   return (
     <>
       <Box sx={{ my: 6, borderTop: '1px solid', borderColor: isDark ? '#333' : '#ccc' }} />
+
       <Grid
         id="Niveles"
         container
-        spacing={2}
-        sx={{
-          padding: { xs: 2, sm: 2, md: 2, lg: 4 },
-        }}
+        spacing={4}
+        sx={{ px: { xs: 2, sm: 4, md: 6, lg: 10 }, pt: 6 }}
+        justifyContent="center"
       >
+        {/* Encabezado */}
         <Grid
-          size={{ xs: 10, sm: 10, md: 10, lg: 10 }}
-          offset={{ xs: 1 }}
-          sx={{ paddingTop: { xs: 5, sm: 5, md: 10, lg: 4 } }}
+          size={{ xs: 12, sm: 10, md: 10, lg: 12 }}
+          sx={{ textAlign: 'center' }}
         >
           <Typography
             variant="h4"
@@ -38,6 +38,7 @@ function Nivels() {
           >
             Conoce nuestra propuesta educativa integral
           </Typography>
+
           <Typography
             variant="h5"
             sx={{
@@ -50,65 +51,90 @@ function Nivels() {
               animationDelay: "0.2s",
             }}
           >
-            Desde primaria hasta formación superior técnica
+            Modelo educativo científico vocacional a temprana edad
           </Typography>
+
           <Typography
             variant="body2"
             sx={{
               color: isDark ? "#aaa" : "#6c757d",
+              maxWidth: "800px",
+              mx: "auto",
+              mt: 2,
               opacity: 0,
               transform: "translateY(20px)",
               animation: "fadeSlideIn 1.2s forwards",
               animationDelay: "0.4s",
             }}
           >
-            Nuestra unidad educativa acompaña el crecimiento académico de cada estudiante desde sus primeras etapas hasta su proyección profesional universitaria.
+            Formar integralmente a niños, niñas, adolescentes como futuros científicos, investigadores y creadores de conocimiento, estimulando la innovación, el pensamiento crítico, la vocación temprana, en un modelo educativo articulado la escuela con la universidad, orientado al desarrollo sostenible y al bienestar de la comunidad.
           </Typography>
         </Grid>
-
-        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} offset={{ xs: 0, sm: 0, md: 0, lg: 1 }}>
+        {/* Cards */}
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3.5 }}>
           <Card
             init="Primary"
-            imageurl="/Nivels/Initial.png"
-            title="Educación Primaria"
-            paragraph="Desarrollo integral de habilidades básicas: lectura, escritura, matemáticas y expresión. Formación con enfoque en pensamiento lógico y valores."
+            imageurl="/Nivels/Primary.png"
+            title="Educación primaria vocacional"
+            paragraph="Brindar a los niños, niñas una educación integral que combine los contenidos académicos básicos con experiencias vocacionales tempranas, desarrollando habilidades, talentos por distintas áreas del conocimiento, para orientar sus intereses y prepararlos para la educación secundaria y la futura vida profesional."
             paragraph1="6 a 11 años"
             paragraph2="Fundamentos académicos"
             paragraph3="Formación integral"
           />
         </Grid>
 
-        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3.5 }}>
           <Card
             init="Secondary"
-            imageurl="/Nivels/Secondary.png"
-            title="Educación Secundaria"
-            paragraph="Preparación académica intermedia con enfoque en razonamiento crítico, habilidades científicas, y orientación vocacional progresiva."
+            imageurl="/Nivels/Secondaryy.png"
+            title="Educación secundaria especializada"
+            paragraph="Formar adolescentes con una educación integral que combine conocimientos académicos generales con competencias especializadas en áreas científicas, técnicas, artísticas o productivas, preparándolos para la educación superior universitaria y la vida profesional, con la participación activa en la sociedad."
             paragraph1="12 a 17 años"
             paragraph2="Orientación vocacional"
             paragraph3="Pensamiento crítico"
           />
         </Grid>
 
-        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3.5 }}>
           <Card
             init="Superior"
-            imageurl="/Nivels/Uni.png"
-            title="Educación Técnica Superior"
-            paragraph="Programas profesionales especializados con acompañamiento docente, prácticas reales y conexión directa con la universidad."
+            imageurl="/Nivels/Uni.jpg"
+            title="Educación Universitaria Cientifica"
+            paragraph="Formar profesionales y científicos altamente capacitados, con pensamiento crítico, habilidades investigativas, creatividad e innovación, capaces de generar y aplicar conocimientos científicos, tecnológico para resolver problemas sociales, productivos, ambientales, contribuyendo al desarrollo sostenible, al bienestar de la comunidad y al progreso del país."
             paragraph1="A partir de 18 años"
             paragraph2="Especialización profesional"
             paragraph3="Proyección universitaria"
           />
         </Grid>
 
-        <Grid size={{ xs: 12, sm: 4, md: 4, lg: 4 }} offset={{ xs: 0, sm: 4, md: 4, lg: 5 }}>
-          <Button variant="outlined">Ver malla curricular</Button>
+        {/* Botón */}
+        <Grid
+          size={{ xs: 12, sm: 8, md: 6, lg: 4 }}
+          sx={{ textAlign: 'center', mt: 4 }}
+        >
+          <Button
+            variant="outlined"
+            sx={{
+              px: 4,
+              py: 1.5,
+              fontWeight: 600,
+              borderRadius: 2,
+              borderColor: isDark ? '#fff' : '#01579b',
+              color: isDark ? '#fff' : '#01579b',
+              '&:hover': {
+                backgroundColor: isDark ? '#333' : '#01579b',
+                color: '#fff',
+              },
+            }}
+          >
+            Ver malla curricular
+          </Button>
         </Grid>
       </Grid>
+
       <hr />
 
-      {/* Animaciones CSS */}
+      {/* Animaciones */}
       <style>{`
         @keyframes fadeSlideIn {
           0% { opacity: 0; transform: translateY(30px); }

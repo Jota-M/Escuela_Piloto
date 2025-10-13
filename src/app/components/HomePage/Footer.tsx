@@ -62,15 +62,15 @@ function Footer() {
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
             <Phone sx={{ mr: 1, fontSize: 20 }} />
-            <Typography variant="body2">+591 4 532 9876</Typography>
+            <Typography variant="body2">74223188 - 73851691 – 73825717</Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
             <Email sx={{ mr: 1, fontSize: 20 }} />
-            <Typography variant="body2">contacto@sanjuanbosco.edu.bo</Typography>
+            <Typography variant="body2">Roque140919@gmail.com</Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <AccessTime sx={{ mr: 1, fontSize: 20 }} />
-            <Typography variant="body2">Lun - Vie: 7:30 AM - 5:00 PM</Typography>
+            <Typography variant="body2">Lun - Vie: 8:00 AM - 16:00 PM</Typography>
           </Box>
         </Grid>
 
@@ -168,7 +168,7 @@ function Footer() {
         align="center"
         sx={{ color: 'gray.400' }}
       >
-        © 2025 Unidad Educativa Particular Cristiana San Juan Bosco. Todos los derechos reservados.
+        © 2025 Escuela Vocacional Piloto derechos reservados.
       </Typography>
     </Box>
   );

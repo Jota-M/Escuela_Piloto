@@ -154,20 +154,6 @@ function Navbar() {
               </li>
             );
           })}
-
-          {/* Botón Admisiones */}
-          <li
-            style={{ animation: "fadeInUp 0.4s ease forwards", animationDelay: "0.7s" }}
-          >
-            <a
-              href="/PreInscripcion"
-              onClick={() => setShowMobileMenu(false)}
-              className="mt-4 inline-block bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold shadow-md hover:bg-green-600 transition-transform hover:scale-110"
-            >
-              Admisiones 2025
-            </a>
-          </li>
-
           {/* Botón Login */}
           <li
             style={{ animation: "fadeInUp 0.4s ease forwards", animationDelay: "0.9s" }}

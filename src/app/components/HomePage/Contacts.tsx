@@ -151,7 +151,7 @@ function Contact() {
               Nuestra información
             </Typography>
             <Typography variant="body2" gutterBottom>
-              <strong>Escuela Vocacional Piloto</strong>
+              <strong>Instituto de Investigación Pedagógica Escuela Vocacional Piloto</strong>
               <br />
               Calle Sucre Nº 123
               <br />
@@ -162,10 +162,10 @@ function Contact() {
               gutterBottom
               sx={{ color: 'green', fontWeight: 'bold' }}
             >
-              +591 4 532 9876
+              74223188- 73851691 - 73825717
             </Typography>
             <Typography variant="body2" gutterBottom>
-              contacto@sanjuanbosco.edu.bo
+              Roque140919@gmail.com
             </Typography>
 
             {/* Redes sociales */}

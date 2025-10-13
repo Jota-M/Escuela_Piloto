@@ -18,7 +18,7 @@ function LoginPage() {
 
     // 🔒 Simulación de login (solo frontend)
     setTimeout(() => {
-      if (username === 'admin' && password === 'admin') {
+      if (username === 'adminescuela' && password === 'adminescuela') {
         router.push('/dashboard'); // ✅ Redirige a /dashboard
       } else {
         setErrorMsg('Credenciales incorrectas');
@@ -33,7 +33,7 @@ function LoginPage() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "url('/fondo2.jpg')",
+          backgroundImage: "url('/fondo-pica.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           zIndex: -2,
@@ -49,15 +49,15 @@ function LoginPage() {
       <div className="mt-36 md:mt-20 lg:mt-0 flex flex-col md:flex-row w-full max-w-4xl rounded-2xl overflow-hidden shadow-xl bg-white/10 backdrop-blur-lg border border-white/10">
         {/* Lado izquierdo */}
         <div className="flex-1 p-8 md:p-12 text-white flex flex-col justify-center text-center">
-          <img className="w-40 h-auto mx-auto mb-4" src="/logo.png" alt="Logo" />
+          <img className="w-40 h-auto mx-auto mb-4" src="/School.png" alt="Logo" />
           <h1 className="text-3xl font-bold font-[Playfair_Display] italic">
-            Educación Técnica y Vocacional para el Futuro
+            Unidad Educativa Escuela Vocacional Plataforma Educativa
           </h1>
           <p className="mt-4 text-sm text-gray-200">
-            Bienvenido a la Unidad Educativa Vocacional Piloto en Llallagua, un centro de formación con enfoque técnico, innovador y orientado al futuro.
+            Bienvenido a la Escuela Vocacional Piloto en Llallagua, un centro de investigacion para diseñar modelos educativos con futuro.
           </p>
           <p className="mt-4 text-xs text-gray-400">
-            © 2025 Unidad Educativa Vocacional Piloto — Llallagua
+            © 2025 Unidad Educativa Vocacional Piloto – Llallagua
           </p>
         </div>
 

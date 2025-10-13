@@ -13,10 +13,10 @@ interface PilsProps{
 
 export default function Pils({ image, title, description }: PilsProps) {
   return (
-    <Card sx={{ width: { xs: "80%", sm: "40%", md: "60%", lg: "15rem"} }}>
+    <Card sx={{ width: { xs: "90%", sm: "80%", md: "90%", lg: "18rem"} }}>
         <CardMedia
           component="img"
-          sx={{ height: { xs: 180, sm: 100, md: 200, lg: 200 } }}
+          sx={{ height: { xs: 180, sm: 180, md: 200, lg: 200 } }}
           image={image}
           alt=""
         />

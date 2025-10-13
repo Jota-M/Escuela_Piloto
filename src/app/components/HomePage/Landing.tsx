@@ -6,12 +6,9 @@ function Landing() {
     <div
       id="Inicio"
       className="relative w-full h-dvh bg-fixed bg-cover bg-center overflow-hidden pt-32 md:min-h-screen md:flex md:items-center scroll-smooth"
-      style={{ backgroundImage: "url('/fondo2.jpg')" }}
+      style={{ backgroundImage: "url('/fondo-pica.png')" }}
     >
-      {/* Capa de opacidad encima del fondo */}
       <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
-
-      {/* Navbar y contenido por encima de la capa de opacidad */}
       <div className="relative z-10 w-full">
         <Navbar />
 
@@ -19,18 +16,18 @@ function Landing() {
           {/* Texto */}
           <div className="space-y-6 text-center md:text-left animate-fadeIn">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight text-white drop-shadow-lg">
-              Formación Vocacional con{" "}
+              Instituto de Investigación Pedagógica {" "}
               <span className="text-blue-400 decoration-blue-400 decoration-4 animate-pulse">
-                Excelencia Académica
+                Escuela Vocacional Piloto-Bolivia
               </span>{" "}
               y{" "}
               <span className="text-red-400 decoration-blue-400 decoration-4 animate-pulse">
-                Compromiso Universitario
+                Dependiente de la Universidad Publica
               </span>
             </h1>
 
-            <p className="text-gray-200 opacity-0 animate-fadeIn delay-500">
-              Unidad Educativa Vocacional Piloto dependiente de la Universidad.
+            <p className="text-white  animate-fadeIn delay-500">
+              El nuevo modelo educativo para el nivel primaria, secundaria que articula y conecta con la Universidad, fue elaborado, diseñado e investigado por el Instituto de Investigación Pedagógica y su Escuela Vocacional Piloto dependiente de la Universidad. Asimismo, se trabajó con los cuatro pilares escuela, universidad, empresa y sociedad, siendo esto un aporte valioso para el Sistema de Educación del Estado Plurinacional de Bolivia.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">

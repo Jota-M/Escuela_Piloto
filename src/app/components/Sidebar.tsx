@@ -136,7 +136,7 @@ const Sidebar = () => {
             {!isCollapsed && (
               <Box display="flex" justifyContent="space-between" alignItems="center" ml="15px" mr="10px">
                 <Typography variant="h3" color={colors.grey[100]}>
-                  U.E. LVC
+                  I.I.P. - E.V.P.
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)} sx={{ p: 1, minWidth: 40 }}>
                   <MenuOutlinedIcon />
@@ -153,7 +153,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100"
                   height="100"
-                  src={`/perfil.jpg`}
+                  src={`/Icon.png`}
                   style={{ cursor: 'pointer', borderRadius: '50%' }}
                 />
               </Box>
@@ -164,7 +164,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: '10px 0 0 0' }}
                 >
-                  Oswaldo
+                  Escuelita
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   Director Administrativo
