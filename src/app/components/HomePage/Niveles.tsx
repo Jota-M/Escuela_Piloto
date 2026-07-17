@@ -106,30 +106,6 @@ function Nivels() {
             paragraph3="Proyección universitaria"
           />
         </Grid>
-
-        {/* Botón */}
-        <Grid
-          size={{ xs: 12, sm: 8, md: 6, lg: 4 }}
-          sx={{ textAlign: 'center', mt: 4 }}
-        >
-          <Button
-            variant="outlined"
-            sx={{
-              px: 4,
-              py: 1.5,
-              fontWeight: 600,
-              borderRadius: 2,
-              borderColor: isDark ? '#fff' : '#01579b',
-              color: isDark ? '#fff' : '#01579b',
-              '&:hover': {
-                backgroundColor: isDark ? '#333' : '#01579b',
-                color: '#fff',
-              },
-            }}
-          >
-            Ver malla curricular
-          </Button>
-        </Grid>
       </Grid>
 
       <hr />
