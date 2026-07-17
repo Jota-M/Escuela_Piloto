@@ -1,426 +1,500 @@
-// app/dashboard/admin/materias/page.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import { tokens } from '@/app/dashboard/theme';
+
 import {
   Box,
   Typography,
-  Grid,
   Button,
-  Collapse,
+  Grid,
+  Card,
   Stack,
-  IconButton,
-  Tooltip,
+  Tabs,
+  Tab,
   TextField,
+  InputAdornment,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Chip,
+  FormControl,
+  InputLabel,
+  Select,
   MenuItem,
-  useTheme,
 } from '@mui/material';
-import { alpha, keyframes } from '@mui/material/styles';
 
-import SchoolIcon from '@mui/icons-material/School';
-import CategoryIcon from '@mui/icons-material/Category';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
+import SearchIcon from '@mui/icons-material/Search';
+import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-const fadeInUp = keyframes`
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
+// ==================== TIPOS ====================
+type Paralelo = {
+  id: string;
+  nivel: 'Primaria' | 'Secundaria';
+  grado: string;
+  paralelo: string;
+  capacidad: number;
+  matriculados: number;
+  docenteGuia: string;
+  aula: string;
+};
 
-type ColorKey = 'success' | 'info' | 'primary' | 'warning' | 'error' | 'secondary';
+type ClaseHorario = {
+  dia: 'Lun' | 'Mar' | 'Mié' | 'Jue' | 'Vie';
+  inicio: string; // "08:00"
+  fin: string; // "08:45"
+  materia: string;
+  docente: string;
+  color: string;
+};
 
-interface Subject {
-  name: string;
-  credits: number;
-  type: 'Obligatoria' | 'Electiva';
-}
-
-interface CategorySection {
+type Stat = {
+  tab: string;
   title: string;
-  description: string;
-  color: ColorKey;
+  value: string | number;
+  trend: string;
   icon: React.ReactNode;
-  subjects: Subject[];
-}
+  hex: string;
+  featured?: boolean;
+};
 
-const periodos = [
-  { value: '2024', label: 'Gestión 2024' },
-  { value: '2025', label: 'Gestión 2025' },
+// ==================== DATOS SIMULADOS ====================
+const PARALELOS: Paralelo[] = [
+  { id: '6a', nivel: 'Primaria', grado: '6to', paralelo: 'A', capacidad: 35, matriculados: 32, docenteGuia: 'Luis Mamani Quispe', aula: 'Aula 12' },
+  { id: '6b', nivel: 'Primaria', grado: '6to', paralelo: 'B', capacidad: 35, matriculados: 28, docenteGuia: 'María López', aula: 'Aula 13' },
+  { id: '3a', nivel: 'Secundaria', grado: '3ro', paralelo: 'A', capacidad: 40, matriculados: 39, docenteGuia: 'Carlos Ticona', aula: 'Aula 21' },
+  { id: '4a', nivel: 'Secundaria', grado: '4to', paralelo: 'A', capacidad: 40, matriculados: 30, docenteGuia: 'Ana Pérez', aula: 'Aula 22' },
 ];
 
-const categories: CategorySection[] = [
-  {
-    title: 'Nivel Inicial',
-    description: 'Vida-Tierra-Territorio, Comunidad y Sociedades, Cosmos y Pensamiento',
-    color: 'success',
-    icon: <CategoryIcon fontSize="small" />,
-    subjects: [
-      { name: 'Desarrollo bio-psicomotriz (Ciencias Naturales)', credits: 6, type: 'Obligatoria' },
-      { name: 'Desarrollo de la comunicación, lenguaje y artes (Música, APV, CS, Recreación)', credits: 5, type: 'Obligatoria' },
-      { name: 'Desarrollo sociocultural, afectivo y espiritual', credits: 4, type: 'Obligatoria' },
-      { name: 'Desarrollo del conocimiento y la producción (Matemáticas, Técnica Tecnológica)', credits: 4, type: 'Obligatoria' },
-    ],
-  },
-  {
-    title: 'Nivel Primario',
-    description: 'Música, Artes Plásticas, Talleres',
-    color: 'warning',
-    icon: <LibraryBooksIcon fontSize="small" />,
-    subjects: [
-      { name: 'Comunicación y Lenguajes — Lengua Originaria y Extranjera', credits: 3, type: 'Electiva' },
-      { name: 'Ciencias Sociales', credits: 2, type: 'Electiva' },
-      { name: 'Artes Plásticas y Visuales', credits: 2, type: 'Electiva' },
-      { name: 'Educación Física y Deportes', credits: 2, type: 'Electiva' },
-      { name: 'Educación Musical', credits: 2, type: 'Electiva' },
-      { name: 'Matemática', credits: 2, type: 'Electiva' },
-      { name: 'Técnica Tecnológica', credits: 2, type: 'Electiva' },
-      { name: 'Ciencias Naturales', credits: 2, type: 'Electiva' },
-      { name: 'Valores, Espiritualidades y Religiones', credits: 2, type: 'Electiva' },
-    ],
-  },
-  {
-    title: 'Nivel Secundario',
-    description: 'Física, Química, Historia',
-    color: 'info',
-    icon: <SchoolIcon fontSize="small" />,
-    subjects: [
-      { name: 'Deportes', credits: 2, type: 'Obligatoria' },
-      { name: 'Recreación', credits: 1, type: 'Electiva' },
-      { name: 'Salud y Bienestar', credits: 2, type: 'Obligatoria' },
-    ],
-  },
-];
+const HORARIOS: Record<string, ClaseHorario[]> = {
+  '6a': [
+    { dia: 'Lun', inicio: '08:00', fin: '08:45', materia: 'Matemáticas', docente: 'L. Mamani', color: 'blueAccent' },
+    { dia: 'Lun', inicio: '08:45', fin: '09:30', materia: 'Lenguaje', docente: 'M. López', color: 'greenAccent' },
+    { dia: 'Mar', inicio: '08:00', fin: '08:45', materia: 'Ciencias', docente: 'C. Ticona', color: 'redAccent' },
+    { dia: 'Mié', inicio: '08:00', fin: '08:45', materia: 'Matemáticas', docente: 'L. Mamani', color: 'blueAccent' },
+    { dia: 'Jue', inicio: '09:30', fin: '10:15', materia: 'Educación Física', docente: 'A. Pérez', color: 'greenAccent' },
+    { dia: 'Vie', inicio: '08:45', fin: '09:30', materia: 'Lenguaje', docente: 'M. López', color: 'greenAccent' },
+  ],
+  '6b': [
+    { dia: 'Lun', inicio: '08:00', fin: '08:45', materia: 'Lenguaje', docente: 'M. López', color: 'greenAccent' },
+    { dia: 'Mar', inicio: '08:45', fin: '09:30', materia: 'Matemáticas', docente: 'L. Mamani', color: 'blueAccent' },
+  ],
+  '3a': [
+    { dia: 'Lun', inicio: '08:00', fin: '08:45', materia: 'Física', docente: 'C. Ticona', color: 'redAccent' },
+    { dia: 'Jue', inicio: '08:00', fin: '08:45', materia: 'Química', docente: 'C. Ticona', color: 'redAccent' },
+  ],
+  '4a': [],
+};
 
-function CategoryCard({
-  section,
-  index,
-  fadeUp,
-}: {
-  section: CategorySection;
-  index: number;
-  fadeUp: (i: number) => object;
-}) {
-  const [open, setOpen] = useState(index === 0);
+const DIAS: ClaseHorario['dia'][] = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie'];
+const FRANJAS = ['08:00', '08:45', '09:30', '10:15', '11:00', '11:45'];
+
+// ==================== PÁGINA ====================
+export default function Page() {
   const theme = useTheme();
-  const hex = theme.palette[section.color].main;
+  const colors = tokens(theme.palette.mode);
 
-  return (
-    <Box
-      sx={{
-        borderRadius: 3.5,
-        border: '1px solid',
-        borderColor: alpha(hex, 0.25),
-        overflow: 'hidden',
-        transition: 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease',
-        ...fadeUp(index),
-        '&:hover': { boxShadow: `0 12px 28px ${alpha(hex, 0.15)}` },
-      }}
-    >
-      {/* Header */}
-      <Box
-        onClick={() => setOpen(!open)}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1.5,
-          px: { xs: 2, md: 3 },
-          py: 1.8,
-          cursor: 'pointer',
-          background: `linear-gradient(90deg, ${alpha(hex, 0.14)}, ${alpha(hex, 0.03)})`,
-        }}
-      >
-        <Box
-          sx={{
-            width: 36,
-            height: 36,
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            bgcolor: hex,
-            color: theme.palette.getContrastText(hex),
-            boxShadow: `0 6px 14px ${alpha(hex, 0.4)}`,
-            flexShrink: 0,
-          }}
-        >
-          {section.icon}
-        </Box>
+  const [search, setSearch] = useState('');
+  const [view, setView] = useState<'paralelos' | 'horarios'>('paralelos');
+  const [paraleloSeleccionado, setParaleloSeleccionado] = useState(PARALELOS[0].id);
 
-        <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-          <Typography variant="subtitle1" fontWeight={700}>
-            {section.title}
-          </Typography>
-          <Typography variant="caption" color="text.secondary" noWrap sx={{ display: 'block' }}>
-            {section.description}
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            px: 1.4,
-            py: 0.3,
-            borderRadius: 99,
-            fontSize: 12,
-            fontWeight: 700,
-            color: hex,
-            bgcolor: alpha(hex, 0.14),
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {section.subjects.length} materias
-        </Box>
-
-        <Tooltip title="Añadir nueva materia">
-          <IconButton
-            size="small"
-            onClick={(e) => e.stopPropagation()}
-            sx={{ color: hex, '&:hover': { bgcolor: alpha(hex, 0.12) } }}
-          >
-            <AddIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
-
-        <ExpandMoreIcon
-          sx={{
-            color: 'text.secondary',
-            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform 0.25s ease',
-          }}
-        />
-      </Box>
-
-      {/* Materias */}
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <Stack spacing={1.2} sx={{ p: { xs: 2, md: 3 } }}>
-          {section.subjects.map((subject, i) => {
-            const tipoHex = theme.palette[subject.type === 'Obligatoria' ? 'success' : 'info'].main;
-            return (
-              <Box
-                key={i}
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  gap: 2,
-                  p: 1.8,
-                  borderRadius: 2.5,
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  transition: 'background-color 0.2s ease, transform 0.2s ease',
-                  '&:hover': { bgcolor: alpha(hex, 0.05), transform: 'translateX(2px)' },
-                }}
-              >
-                <Box sx={{ minWidth: 0 }}>
-                  <Typography variant="subtitle2" fontWeight={700} noWrap>
-                    {subject.name}
-                  </Typography>
-                  <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 0.5 }}>
-                    <Typography variant="caption" color="text.secondary">
-                      Créditos: {subject.credits}
-                    </Typography>
-                    <Box
-                      sx={{
-                        px: 1,
-                        py: 0.15,
-                        borderRadius: 99,
-                        fontSize: 11,
-                        fontWeight: 700,
-                        color: tipoHex,
-                        bgcolor: alpha(tipoHex, 0.14),
-                      }}
-                    >
-                      {subject.type}
-                    </Box>
-                  </Stack>
-                </Box>
-                <Tooltip title="Editar materia">
-                  <IconButton size="small" sx={{ color: 'warning.main', flexShrink: 0 }}>
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            );
-          })}
-        </Stack>
-      </Collapse>
-    </Box>
+  const filteredParalelos = PARALELOS.filter((p) =>
+    `${p.grado} ${p.paralelo} ${p.docenteGuia}`.toLowerCase().includes(search.toLowerCase())
   );
-}
 
-export default function GestionMateriasPage() {
-  const theme = useTheme();
+  const totalParalelos = PARALELOS.length;
+  const capacidadTotal = PARALELOS.reduce((acc, p) => acc + p.capacidad, 0);
+  const matriculadosTotal = PARALELOS.reduce((acc, p) => acc + p.matriculados, 0);
+  const ocupacion = capacidadTotal > 0 ? Math.round((matriculadosTotal / capacidadTotal) * 100) : 0;
 
-  const getHex = (color: ColorKey) => theme.palette[color].main;
-
-  const fadeUp = (index: number) => ({
-    animation: `${fadeInUp} 0.55s cubic-bezier(0.16, 1, 0.3, 1) both`,
-    animationDelay: `${index * 90}ms`,
-    '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
-  });
-
-  const kpis = [
-    { title: 'Total materias', value: '48', icon: <LibraryBooksIcon fontSize="small" />, color: 'primary' as ColorKey, note: 'Activas en currículo' },
-    { title: 'Materias básicas', value: '12', icon: <CategoryIcon fontSize="small" />, color: 'success' as ColorKey, note: 'Obligatorias' },
-    { title: 'Materias electivas', value: '18', icon: <AddIcon fontSize="small" />, color: 'warning' as ColorKey, note: 'Opcionales' },
-    { title: 'Créditos totales', value: '156', icon: <WorkspacePremiumIcon fontSize="small" />, color: 'secondary' as ColorKey, note: 'Por año académico' },
+  const stats: Stat[] = [
+    {
+      tab: 'PAR',
+      title: 'Paralelos activos',
+      value: totalParalelos,
+      trend: 'Entre primaria y secundaria',
+      icon: <ClassOutlinedIcon fontSize="large" />,
+      hex: colors.blueAccent[500],
+      featured: true,
+    },
+    {
+      tab: 'CAP',
+      title: 'Capacidad total',
+      value: capacidadTotal,
+      trend: 'Cupos disponibles',
+      icon: <GroupsOutlinedIcon />,
+      hex: colors.greenAccent[500],
+    },
+    {
+      tab: 'MAT',
+      title: 'Matriculados',
+      value: matriculadosTotal,
+      trend: 'Estudiantes asignados',
+      icon: <EventAvailableOutlinedIcon />,
+      hex: colors.redAccent[500],
+    },
+    {
+      tab: 'OCU',
+      title: 'Ocupación',
+      value: `${ocupacion}%`,
+      trend: 'Del total de cupos',
+      icon: <TrendingUpIcon />,
+      hex: '#facc15',
+    },
   ];
 
+  const featured = stats.find((s) => s.featured) as Stat;
+  const secondary = stats.filter((s) => !s.featured);
+
+  const StatCard = ({ stat, large = false }: { stat: Stat; large?: boolean }) => (
+    <Card
+      elevation={0}
+      sx={{
+        position: 'relative',
+        overflow: 'visible',
+        borderRadius: 3,
+        bgcolor: colors.primary[400],
+        border: '1px solid',
+        borderColor: `${stat.hex}30`,
+        p: large ? 3.5 : 2.5,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          borderRadius: 3,
+          backgroundImage: `repeating-linear-gradient(${colors.grey[100]}08 0px, ${colors.grey[100]}08 1px, transparent 1px, transparent 22px)`,
+          pointerEvents: 'none',
+        },
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          boxShadow: `0 8px 24px ${stat.hex}30`,
+        },
+      }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: -14,
+          left: 20,
+          px: 1.4,
+          py: 0.4,
+          bgcolor: stat.hex,
+          color: '#fff',
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: '0.08em',
+          borderRadius: '4px 4px 0 0',
+          clipPath: 'polygon(0 0, 100% 0, 92% 100%, 8% 100%)',
+        }}
+      >
+        {stat.tab}
+      </Box>
+
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
+        <Typography variant="overline" sx={{ color: colors.grey[300], letterSpacing: '0.06em', lineHeight: 1.3 }}>
+          {stat.title}
+        </Typography>
+        <Box sx={{ color: stat.hex, opacity: 0.85 }}>{stat.icon}</Box>
+      </Box>
+
+      <Typography
+        sx={{
+          fontVariantNumeric: 'tabular-nums',
+          fontWeight: 800,
+          fontSize: large ? 48 : 30,
+          lineHeight: 1,
+          color: colors.grey[100],
+        }}
+      >
+        {stat.value}
+      </Typography>
+
+      <Typography variant="caption" sx={{ mt: 1.5, color: stat.hex, fontWeight: 600 }}>
+        {stat.trend}
+      </Typography>
+    </Card>
+  );
+
+  // Mapa día+franja -> clase, para pintar la grilla del paralelo seleccionado
+  const grilla = useMemo(() => {
+    const map = new Map<string, ClaseHorario>();
+    (HORARIOS[paraleloSeleccionado] || []).forEach((c) => {
+      map.set(`${c.dia}-${c.inicio}`, c);
+    });
+    return map;
+  }, [paraleloSeleccionado]);
+
   return (
-    <Box sx={{ p: { xs: 2.5, md: 4 }, bgcolor: 'background.default' }}>
+    <Box sx={{ p: { xs: 0 } }}>
       {/* Header */}
       <Stack
         direction={{ xs: 'column', md: 'row' }}
-        justifyContent="space-between"
         alignItems={{ md: 'flex-end' }}
+        justifyContent="space-between"
         spacing={2}
-        sx={{ mb: 3, ...fadeUp(0) }}
+        sx={{ mb: 4 }}
       >
         <Box>
-          <Typography variant="overline" sx={{ color: 'text.secondary', letterSpacing: '0.08em' }}>
-            Gestión académica
+          <Typography variant="overline" sx={{ color: colors.grey[300], letterSpacing: '0.08em' }}>
+            Estructura Académica
           </Typography>
-          <Typography variant="h4" fontWeight={800} sx={{ mt: 0.3 }}>
-            Gestión de materias
+          <Typography variant="h4" fontWeight={800} sx={{ mt: 0.5 }}>
+            Horarios y Paralelos
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.3 }}>
-            Configura las materias del currículo académico, créditos y requisitos por grado
+          <Typography variant="body2" sx={{ color: colors.grey[300], mt: 0.5 }}>
+            Administra los paralelos por grado y el horario semanal de cada uno
           </Typography>
         </Box>
 
-        <Stack direction="row" spacing={1.5} flexWrap="wrap" useFlexGap>
-          <Button
-            variant="outlined"
-            startIcon={<UploadFileIcon />}
-            sx={{
-              textTransform: 'none',
-              fontWeight: 700,
-              borderRadius: 99,
-              px: 2.2,
-              borderColor: 'divider',
-              color: 'text.primary',
-              '&:hover': { bgcolor: alpha(theme.palette.text.primary, 0.06), borderColor: 'divider' },
-            }}
-          >
-            Importar materias
-          </Button>
-          <Button
-            variant="outlined"
-            startIcon={<FileDownloadIcon />}
-            sx={{
-              textTransform: 'none',
-              fontWeight: 700,
-              borderRadius: 99,
-              px: 2.2,
-              borderColor: 'divider',
-              color: 'text.primary',
-              '&:hover': { bgcolor: alpha(theme.palette.text.primary, 0.06), borderColor: 'divider' },
-            }}
-          >
-            Exportar todo
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            sx={{
-              textTransform: 'none',
-              fontWeight: 700,
-              borderRadius: 99,
-              px: 2.5,
-              background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
-              boxShadow: `0 8px 20px ${alpha(theme.palette.primary.main, 0.35)}`,
-              '&:hover': {
-                background: `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.primary.main})`,
-                boxShadow: `0 10px 24px ${alpha(theme.palette.primary.main, 0.45)}`,
-              },
-            }}
-          >
-            Nueva materia
-          </Button>
-        </Stack>
+        {view === 'paralelos' && (
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
+            <TextField
+              size="small"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Buscar paralelo o docente..."
+              sx={{ minWidth: 240, bgcolor: colors.primary[400], borderRadius: 1 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: colors.grey[300], fontSize: 20 }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              variant="contained"
+              href="/dashboard/horarios-paralelos/nuevo"
+              startIcon={<AddIcon />}
+              sx={{
+                backgroundColor: colors.blueAccent[500],
+                color: 'white',
+                fontWeight: 700,
+                whiteSpace: 'nowrap',
+                '&:hover': { backgroundColor: colors.blueAccent[600] },
+              }}
+            >
+              Nuevo Paralelo
+            </Button>
+          </Stack>
+        )}
       </Stack>
 
-      {/* Selector de período */}
-      <Box sx={{ mb: 3, ...fadeUp(1) }}>
-        <TextField
-          select
-          label="Período"
-          defaultValue="2025"
-          sx={{
-            width: { xs: '100%', sm: 260 },
-            '& .MuiOutlinedInput-root': { borderRadius: 2.5, bgcolor: 'background.paper' },
-          }}
-        >
-          {periodos.map((p) => (
-            <MenuItem key={p.value} value={p.value}>
-              {p.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Box>
-
-      {/* KPIs */}
-      <Grid container spacing={2.5} sx={{ mb: 3 }}>
-        {kpis.map((k, i) => {
-          const hex = getHex(k.color);
-          return (
-            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={k.title}>
-              <Box
-                sx={{
-                  borderRadius: 3.5,
-                  p: 2.5,
-                  height: '100%',
-                  border: '1px solid',
-                  borderColor: alpha(hex, 0.25),
-                  borderTop: '3px solid',
-                  borderTopColor: hex,
-                  background: `linear-gradient(180deg, ${alpha(hex, 0.06)}, transparent 60%)`,
-                  transition: 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease',
-                  ...fadeUp(i + 2),
-                  '&:hover': { transform: 'translateY(-3px)', boxShadow: `0 12px 28px ${alpha(hex, 0.2)}` },
-                }}
-              >
-                <Box
-                  sx={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    bgcolor: hex,
-                    color: theme.palette.getContrastText(hex),
-                    mb: 1.5,
-                    boxShadow: `0 6px 14px ${alpha(hex, 0.4)}`,
-                  }}
-                >
-                  {k.icon}
-                </Box>
-                <Typography variant="body2" color="text.secondary">
-                  {k.title}
-                </Typography>
-                <Typography variant="h5" fontWeight={800} sx={{ mt: 0.3 }}>
-                  {k.value}
-                </Typography>
-                <Typography variant="caption" sx={{ color: hex, fontWeight: 700 }}>
-                  {k.note}
-                </Typography>
-              </Box>
-            </Grid>
-          );
-        })}
+      {/* Stats */}
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid size={{ xs: 12, md: 5 }}>
+          <StatCard stat={featured} large />
+        </Grid>
+        <Grid size={{ xs: 12, md: 7 }}>
+          <Grid container spacing={3}>
+            {secondary.map((stat) => (
+              <Grid size={{ xs: 12, sm: 4 }} key={stat.tab}>
+                <StatCard stat={stat} />
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
       </Grid>
 
-      {/* Categorías */}
-      <Stack spacing={2.5}>
-        {categories.map((cat, idx) => (
-          <CategoryCard key={cat.title} section={cat} index={idx + 6} fadeUp={fadeUp} />
-        ))}
-      </Stack>
+      {/* Tabs */}
+      <Tabs
+        value={view}
+        onChange={(_, v) => setView(v)}
+        sx={{
+          mb: 3,
+          '& .MuiTab-root': { textTransform: 'none', fontWeight: 600 },
+          '& .Mui-selected': { color: `${colors.blueAccent[500]} !important` },
+          '& .MuiTabs-indicator': { backgroundColor: colors.blueAccent[500] },
+        }}
+      >
+        <Tab label="Paralelos" value="paralelos" />
+        <Tab label="Horario semanal" value="horarios" />
+      </Tabs>
+
+      {/* Vista: lista de paralelos */}
+      {view === 'paralelos' && (
+        <Box
+          sx={{
+            backgroundColor: colors.primary[400],
+            borderRadius: '12px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            p: 2,
+          }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ color: colors.grey[300], fontWeight: 700 }}>Nivel</TableCell>
+                <TableCell sx={{ color: colors.grey[300], fontWeight: 700 }}>Grado</TableCell>
+                <TableCell sx={{ color: colors.grey[300], fontWeight: 700 }}>Paralelo</TableCell>
+                <TableCell sx={{ color: colors.grey[300], fontWeight: 700 }}>Docente guía</TableCell>
+                <TableCell sx={{ color: colors.grey[300], fontWeight: 700 }}>Aula</TableCell>
+                <TableCell sx={{ color: colors.grey[300], fontWeight: 700 }}>Ocupación</TableCell>
+                <TableCell sx={{ color: colors.grey[300], fontWeight: 700 }} align="right">
+                  Acciones
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredParalelos.map((p) => {
+                const ocupacionParalelo = Math.round((p.matriculados / p.capacidad) * 100);
+                const lleno = ocupacionParalelo >= 90;
+                return (
+                  <TableRow key={p.id} hover>
+                    <TableCell>{p.nivel}</TableCell>
+                    <TableCell>{p.grado}</TableCell>
+                    <TableCell>
+                      <Chip
+                        label={p.paralelo}
+                        size="small"
+                        sx={{ bgcolor: `${colors.blueAccent[500]}20`, color: colors.blueAccent[500], fontWeight: 700 }}
+                      />
+                    </TableCell>
+                    <TableCell>{p.docenteGuia}</TableCell>
+                    <TableCell>{p.aula}</TableCell>
+                    <TableCell>
+                      <Chip
+                        label={`${p.matriculados}/${p.capacidad} · ${ocupacionParalelo}%`}
+                        size="small"
+                        sx={{
+                          bgcolor: lleno ? `${colors.redAccent[500]}20` : `${colors.greenAccent[500]}20`,
+                          color: lleno ? colors.redAccent[500] : colors.greenAccent[500],
+                          fontWeight: 600,
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell align="right">
+                      <Button
+                        size="small"
+                        startIcon={<EditOutlinedIcon fontSize="small" />}
+                        onClick={() => {
+                          setParaleloSeleccionado(p.id);
+                          setView('horarios');
+                        }}
+                      >
+                        Ver horario
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+              {filteredParalelos.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={7} align="center" sx={{ color: colors.grey[300], py: 4 }}>
+                    No se encontraron paralelos para "{search}"
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </Box>
+      )}
+
+      {/* Vista: horario semanal */}
+      {view === 'horarios' && (
+        <Box
+          sx={{
+            backgroundColor: colors.primary[400],
+            borderRadius: '12px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            p: 3,
+          }}
+        >
+          <FormControl size="small" sx={{ minWidth: 220, mb: 3 }}>
+            <InputLabel id="paralelo-select-label">Paralelo</InputLabel>
+            <Select
+              labelId="paralelo-select-label"
+              label="Paralelo"
+              value={paraleloSeleccionado}
+              onChange={(e) => setParaleloSeleccionado(e.target.value)}
+            >
+              {PARALELOS.map((p) => (
+                <MenuItem key={p.id} value={p.id}>
+                  {p.grado} "{p.paralelo}" — {p.nivel}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <Box sx={{ overflowX: 'auto' }}>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: `100px repeat(${DIAS.length}, minmax(140px, 1fr))`,
+                gap: 1,
+                minWidth: 700,
+              }}
+            >
+              {/* Encabezado de días */}
+              <Box />
+              {DIAS.map((dia) => (
+                <Typography
+                  key={dia}
+                  variant="subtitle2"
+                  sx={{ textAlign: 'center', fontWeight: 700, color: colors.grey[100], pb: 1 }}
+                >
+                  {dia}
+                </Typography>
+              ))}
+
+              {/* Filas por franja horaria */}
+              {FRANJAS.map((hora) => (
+                <React.Fragment key={hora}>
+                  <Typography
+                    variant="caption"
+                    sx={{ color: colors.grey[300], display: 'flex', alignItems: 'center', fontWeight: 600 }}
+                  >
+                    {hora}
+                  </Typography>
+                  {DIAS.map((dia) => {
+                    const clase = grilla.get(`${dia}-${hora}`);
+                    const accentHex = clase
+                      ? (colors as any)[clase.color]?.[500] ?? colors.blueAccent[500]
+                      : undefined;
+                    return (
+                      <Box
+                        key={`${dia}-${hora}`}
+                        sx={{
+                          minHeight: 56,
+                          borderRadius: 2,
+                          border: '1px solid',
+                          borderColor: clase ? `${accentHex}40` : colors.primary[500],
+                          bgcolor: clase ? `${accentHex}15` : 'transparent',
+                          p: 1,
+                        }}
+                      >
+                        {clase && (
+                          <>
+                            <Typography variant="caption" sx={{ fontWeight: 700, color: accentHex, display: 'block' }}>
+                              {clase.materia}
+                            </Typography>
+                            <Typography variant="caption" sx={{ color: colors.grey[300] }}>
+                              {clase.docente}
+                            </Typography>
+                          </>
+                        )}
+                      </Box>
+                    );
+                  })}
+                </React.Fragment>
+              ))}
+            </Box>
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }
